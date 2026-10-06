@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BIOSWARE Transfer AI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div><p class="eyebrow">BIOSWARE / TRANSFER AI</p><h1>Práčička <span>🚐</span></h1></div>
+      <div class="status"><i></i> server <strong id="serverStatus">...</strong></div>
+    </header>
+    <main>
+      <section class="hero card">
+        <div>
+          <p class="eyebrow">SPRÁVA → JAZDA</p>
+          <h2>Vlož správu od šéfa.</h2>
+          <p class="muted">Ručný vstup zostáva ako záloha. Messenger bridge bude správy pridávať automaticky.</p>
+        </div>
+        <textarea id="messageInput" placeholder="Sem vlož správu…"></textarea>
+        <div class="actions">
+          <button id="parseBtn" class="primary">Rozobrať správu</button>
+          <button id="demoBtn" class="ghost">Vložiť ukážku</button>
+        </div>
+      </section>
+      <section class="card inbox-card">
+        <div class="section-title">
+          <div><p class="eyebrow">MESSENGER INBOX</p><h2>Nové prijaté jazdy</h2></div>
+          <span id="inboxCount" class="pill">0 čaká</span>
+        </div>
+        <p class="muted compact">Správy z Messengeru sa sem dostanú automaticky. Jazdu vytvoríš až po kontrole.</p>
+        <div id="inboxList" class="inbox-list"></div>
+      </section>
+
+      <section id="editor" class="card editor hidden">
+        <div class="section-title">
+          <div><p class="eyebrow">ROZPOZNANÁ JAZDA</p><h2>Skontroluj a potvrď</h2></div>
+          <span id="confidence" class="pill">AI návrh</span>
+        </div>
+        <div class="grid">
+          <label>Názov jazdy<input id="rideName" type="text" placeholder="napr. Viedeň letisko → Trenčín"></label>
+          <label>Cena €<input id="price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00"></label>
+          <label>Dátum<input id="date" type="date"></label>
+          <label>Čas<input id="time" type="time"></label>
+          <label>Zákazník<input id="customer" type="text"></label>
+          <label>Telefón<input id="phone" type="text"></label>
+          <label>Pickup<input id="pickup" type="text"></label>
+          <label>Cieľ<input id="destination" type="text"></label>
+          <label>Let<input id="flight" type="text"></label>
+          <label>Osoby<input id="people" type="number" min="1"></label>
+          <label>Batožina<input id="luggage" type="text"></label>
+        </div>
+        <label class="full">Poznámka<textarea id="note" rows="3"></textarea></label>
+        <div class="actions">
+          <button id="saveBtn" class="primary">Potvrdiť jazdu</button>
+          <button id="cancelBtn" class="ghost">Zrušiť</button>
+        </div>
+      </section>
+
+      <section class="card rides">
+        <div class="section-title">
+          <div><p class="eyebrow">DASHBOARD</p><h2>Jazdy</h2></div>
+          <button id="clearBtn" class="ghost small">Vymazať test dáta</button>
+        </div>
+        <div class="stats">
+          <div><strong id="countAll">0</strong><span>všetky</span></div>
+          <div><strong id="countToday">0</strong><span>dnes</span></div>
+          <div><strong id="weekTotal">0,00 €</strong><span>tento týždeň</span></div>
+        </div>
+        <div class="weekly-close">
+          <span>Uzávierka</span><strong>Nedeľa 00:00</strong><small>Europe/Bratislava</small>
+        </div>
+        <div id="ridesList" class="rides-list"></div>
+      </section>
+
+      <section class="card history">
+        <div class="section-title"><div><p class="eyebrow">UZÁVIERKY</p><h2>Finálne týždenné sumy</h2></div></div>
+        <div id="closureHistory" class="closure-history"></div>
+      </section>
+    </main>
+  </div>
+  <template id="rideTemplate">
+    <article class="ride-item">
+      <div class="ride-time"></div>
+      <div class="ride-main">
+        <div class="ride-head"><h3></h3><strong class="ride-price"></strong></div>
+        <p class="route"></p>
+        <p class="meta"></p>
+      </div>
+      <button class="delete" title="Vymazať">×</button>
+    </article>
+  </template>
+  <script src="app.js"></script>
+</body>
+</html>
